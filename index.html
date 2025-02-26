@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ValoPlan - Estrategias de Valorant</title>
+    <style>
+        :root {
+            --primary-color: #1f2937;
+            --accent-color: #ff4655;
+            --light-text: #f8f8f8;
+            --dark-text: #333;
+            --border-color: #e1e1e1;
+            --bg-color: #f1f5f9;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .banner {
+            background-color: #e9edf5;
+            padding: 0.5rem;
+            text-align: center;
+        }
+        
+        .banner a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--light-text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: var(--accent-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: var(--light-text);
+            text-decoration: none;
+            padding: 0.5rem;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .sign-in-btn {
+            background: transparent;
+            color: var(--light-text);
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .get-started-btn {
+            background-color: var(--accent-color);
+            color: var(--light-text);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .add-play-btn {
+            background-color: #22c55e;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            margin-left: 0.5rem;
+        }
+        
+        .add-icon {
+            font-size: 1.2rem;
+            margin-right: 0.25rem;
+            font-weight: bold;
+        }
+        
+        .main-content {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .strategy-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .agent-icon {
+            width: 60px;
+            height: 60px;
+            background-color: #fdba74;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 1rem;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .strategy-title h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .strategy-title p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .add-to-team-btn {
+            background-color: #818cf8;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            margin-left: auto;
+            cursor: pointer;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 2rem;
+        }
+        
+        .map-container {
+            position: relative;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+            background-color: #1e1e1e;
+        }
+        
+        .map-carousel {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+        }
+        
+        .map-slide {
+            width: 100%;
+            height: 100%;
+            display: none;
+            position: relative;
+        }
+        
+        .map-slide.active {
+            display: block;
+        }
+        
+        .map-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .marker {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid white;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+        }
+        
+        .marker-1 {
+            background-color: #4ade80;
+            top: 30%;
+            left: 20%;
+        }
+        
+        .marker-2 {
+            background-color: #60a5fa;
+            top: 70%;
+            left: 40%;
+        }
+        
+        .marker-3 {
+            background-color: #fb923c;
+            top: 50%;
+            left: 60%;
+        }
+        
+        .marker-4 {
+            background-color: #f43f5e;
+            top: 75%;
+            left: 80%;
+        }
+        
+        .marker-5 {
+            background-color: #facc15;
+            top: 50%;
+            left: 50%;
+        }
+        
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.5);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 10;
+        }
+        
+        .prev {
+            left: 10px;
+        }
+        
+        .next {
+            right: 10px;
+        }
+        
+        .map-thumbnails {
+            display: flex;
+            padding: 10px;
+            background-color: #2a2a2a;
+            justify-content: center;
+        }
+        
+        .map-thumbnail {
+            width: 60px;
+            height: 60px;
+            margin: 0 5px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            object-fit: cover;
+        }
+        
+        .map-thumbnail.active {
+            border-color: var(--accent-color);
+        }
+        
+        .info-panels {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .info-panel {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .info-panel h2 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .board-steps {
+            list-style: none;
+        }
+        
+        .step-item {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .step-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .step-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 0.7rem;
+            margin-right: 0.5rem;
+        }
+        
+        .step-title {
+            font-weight: 600;
+        }
+        
+        .step-agent {
+            font-style: italic;
+            color: #666;
+            font-size: 0.8rem;
+        }
+        
+        .step-description {
+            font-size: 0.9rem;
+            color: #555;
+        }
+        
+        .videos-list, .node-list {
+            list-style: none;
+        }
+        
+        .video-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .video-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .video-thumbnail {
+            width: 80px;
+            height: 45px;
+            object-fit: cover;
+            margin-right: 0.75rem;
+            border-radius: 4px;
+        }
+        
+        .video-title {
+            flex-grow: 1;
+            font-size: 0.9rem;
+        }
+        
+        .empty-message {
+            color: #999;
+            font-style: italic;
+            text-align: center;
+            padding: 1rem 0;
+        }
+        
+        .upload-section {
+            margin-top: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .upload-section h2 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .upload-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .steps-container {
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .steps-container h3 {
+            margin-bottom: 0.75rem;
+        }
+        
+        .step-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .add-step-btn, .upload-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            text-align: center;
+        }
+        
+        .add-step-btn {
+            background-color: #4b5563;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .footer-logo {
+            grid-column: 1;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-logo span {
+            color: var(--accent-color);
+        }
+        
+        .footer-tagline {
+            color: #9ca3af;
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            color: var(--light-text);
+            text-decoration: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #4b5563;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .footer-links {
+            grid-column: 2;
+        }
+        
+        .footer-links h3, .maps-links h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1.25rem;
+            color: #e5e7eb;
+        }
+        
+        .footer-links ul, .maps-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li, .maps-links li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links a, .maps-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover, .maps-links a:hover {
+            color: var(--light-text);
+        }
+        
+        .maps-links {
+            grid-column: 3;
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid #4b5563;
+            text-align: center;
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+        
+        /* Estilos para el archivo uploader */
+        .file-upload {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .file-upload-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #ccc;
+            border-radius: 4px;
+            padding: 2rem 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .file-upload-label:hover {
+            border-color: var(--accent-color);
+        }
+        
+        .file-upload-input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .preview-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .preview-item {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .preview-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .remove-preview {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .upload-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Banner superior -->
+    <div class="banner">
+        ValoPlan está disponible para adquisición. Si estás interesado, <a href="#">contáctanos</a>
+    </div>
+    
+    <!-- Barra de navegación -->
+    <header>
+        <a href="#" class="logo">VALO<span>PLAN</span></a>
+        <nav>
+            <ul>
+                <li><a href="#">Táctica</a></li>
+                <li><a href="#">Equipos</a></li>
+                <li><a href="#">Estrategias</a></li>
+                <li><a href="#">Nodos</a></li>
+            </ul>
+        </nav>
+        <div class="auth-buttons">
+            <button class="sign-in-btn">Iniciar sesión</button>
+            <button class="get-started-btn">Registrarse</button>
+            <button class="add-play-btn" id="add-play-btn"><i class="add-icon">+</i> Agregar Play</button>
+        </div>
+    </header>
+    
+    <!-- Contenido principal -->
+    <div class="main-content">
+        <!-- Cabecera de la estrategia -->
+        <div class="strategy-header">
+            <div class="agent-icon">J</div>
+            <div class="strategy-title">
+                <h1>A Site Retake</h1>
+                <p>Ascent • Valorant • Defensa</p>
+            </div>
+            <button class="add-to-team-btn">Añadir a tu equipo</button>
+        </div>
+        
+        <!-- Contenido grid -->
+        <div class="content-grid">
+            <!-- Contenedor del mapa -->
+            <div class="map-container">
+                <div class="map-carousel">
+                    <!-- Slides del carrusel -->
+                    <div class="map-slide active">
+                        <img src="/api/placeholder/800/500" alt="Mapa de estrategia 1">
+                        <div class="marker marker-1"></div>
+                        <div class="marker marker-2"></div>
+                        <div class="marker marker-3"></div>
+                    </div>
+                    <div class="map-slide">
+                        <img src="/api/placeholder/800/500" alt="Mapa de estrategia 2">
+                        <div class="marker marker-3"></div>
+                        <div class="marker marker-4"></div>
+                        <div class="marker marker-5"></div>
+                    </div>
+                    <div class="map-slide">
+                        <img src="/api/placeholder/800/500" alt="Mapa de estrategia 3">
+                        <div class="marker marker-1"></div>
+                        <div class="marker marker-5"></div>
+                    </div>
+                    
+                    <!-- Botones de navegación -->
+                    <button class="carousel-nav prev">&#10094;</button>
+                    <button class="carousel-nav next">&#10095;</button>
+                </div>
+                
+                <!-- Miniaturas del carrusel -->
+                <div class="map-thumbnails">
+                    <img src="/api/placeholder/60/60" alt="Miniatura 1" class="map-thumbnail active" data-index="0">
+                    <img src="/api/placeholder/60/60" alt="Miniatura 2" class="map-thumbnail" data-index="1">
+                    <img src="/api/placeholder/60/60" alt="Miniatura 3" class="map-thumbnail" data-index="2">
+                </div>
+            </div>
+            
+            <!-- Paneles de información -->
+            <div class="info-panels">
+                <!-- Panel de pasos -->
+                <div class="info-panel">
+                    <h2>Panel 1 de 2</h2>
+                    <ul class="board-steps">
+                        <li class="step-item">
+                            <div class="step-header">
+                                <div class="step-icon" style="background-color: #4ade80;">1</div>
+                                <div class="step-title">Posición principal</div>
+                            </div>
+                            <div class="step-agent">Sage • Ascent • Defensa</div>
+                            <p class="step-description">Coloca un muro en la entrada principal para bloquear el avance enemigo. Usa slow orb para ralentizar a los que intenten pasar.</p>
+                        </li>
+                        <li class="step-item">
+                            <div class="step-header">
+                                <div class="step-icon" style="background-color: #60a5fa;">2</div>
+                                <div class="step-title">Control de mid</div>
+                            </div>
+                            <div class="step-agent">Killjoy • Ascent</div>
+                            <p class="step-description">Posiciona la torreta para vigilar mid. Usa el alarmabot para detectar flanqueos. Prepara ult para retake.</p>
+                        </li>
+                        <li class="step-item">
+                            <div class="step-header">
+                                <div class="step-icon" style="background-color: #fb923c;">3</div>
+                                <div class="step-title">Retake coordinado</div>
+                            </div>
+                            <div class="step-agent">Phoenix • Ascent</div>
+                            <p class="step-description">Usa flash para entrar por la puerta principal. Coordina con Brimstone para usar sus habilidades y limpiar ángulos comunes.</p>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Panel de nodos -->
+                <div class="info-panel">
+                    <h2>Nodos</h2>
+                    <p class="empty-message">No hay nodos adjuntos</p>
+                </div>
+                
+                <!-- Panel de videos -->
+                <div class="info-panel">
+                    <h2>Videos</h2>
+                    <ul class="videos-list">
+                        <li class="video-item">
+                            <img src="/api/placeholder/80/45" alt="Video thumbnail" class="video-thumbnail">
+                            <div class="video-title">Ascent Retake A Site con Sage (Valorant Ranked 2025)</div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Panel de créditos -->
+                <div class="info-panel">
+                    <h2>Créditos</h2>
+                    <p>Créditos a ProGuides por analizar esta táctica.<br>
+                    Sigue su canal para más contenido!</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sección de carga de nuevas estrategias -->
+        <div class="upload-section" id="upload-section" style="display: none;">
+            <h2>Subir nueva estrategia</h2>
+            <form class="upload-form">
+                <div class="form-group">
+                    <label for="strategy-name">Nombre de la estrategia</label>
+                    <input type="text" id="strategy-name" placeholder="Ej: A Site Retake">
+                </div>
+                
+                <div class="form-group">
+                    <label for="map-select">Mapa</label>
+                    <select id="map-select">
+                        <option value="">Seleccionar mapa</option>
+                        <option value="ascent">Ascent</option>
+                        <option value="bind">Bind</option>
+                        <option value="haven">Haven</option>
+                        <option value="split">Split</option>
+                        <option value="icebox">Icebox</option>
+                        <option value="breeze">Breeze</option>
+                        <option value="fracture">Fracture</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="side-select">Lado</label>
+                    <select id="side-select">
+                        <option value="">Seleccionar lado</option>
+                        <option value="attack">Ataque</option>
+                        <option value="defense">Defensa</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="difficulty-select">Dificultad</label>
+                    <select id="difficulty-select">
+                        <option value="">Seleccionar dificultad</option>
+                        <option value="easy">Fácil</option>
+                        <option value="medium">Media</option>
+                        <option value="hard">Difícil</option>
+                    </select>
+                </div>
+                
+                <div class="form-group full-width">
+                    <label for="description">Descripción general</label>
+                    <textarea id="description" placeholder="Describe brevemente la estrategia..."></textarea>
+                </div>
+                
+                <div class="form-group full-width">
+                    <label>Imágenes del mapa (máx. 5)</label>
+                    <div class="file-upload">
+                        <label class="file-upload-label">
+                            <span>Arrastra imágenes aquí o haz clic para seleccionarlas</span>
+                            <input type="file" class="file-upload-input" multiple accept="image/*">
+                        </label>
+                        <div class="preview-container" id="preview-container"></div>
+                    </div>
+                </div>
+                
+                <div class="form-group full-width">
+                    <div class="steps-container">
+                        <h3>Pasos de la estrategia</h3>
+                        <div id="steps-container">
+                            <!-- Primer paso por defecto -->
+                            <div class="step-form">
+                                <div class="form-group">
+                                    <label>Título del paso</label>
+                                    <input type="text" placeholder="Ej: Posicionamiento inicial">
+                                </div>
+                                <div class="form-group">
+                                    <label>Agente</label>
+                                    <select>
+                                        <option value="">Seleccionar agente</option>
+                                        <option value="jett">Jett</option>
+                                        <option value="phoenix">Phoenix</option>
+                                        <option value="sage">Sage</option>
+                                        <option value="sova">Sova</option>
+                                        <option value="brimstone">Brimstone</option>
+                                        <option value="viper">Viper</option>
+                                        <option value="cypher">Cypher</option>
+                                        <option value="reyna">Reyna</option>
+                                        <option value="killjoy">Killjoy</option>
+                                        <option value="skye">Skye</option>
+                                        <option value="yoru">Yoru</option>
+                                        <option value="astra">Astra</option>
+                                        <option value="kayo">KAY/O</option>
+                                        <option value="chamber">Chamber</option>
+                                        <option value="neon">Neon</option>
+                                        <option value="fade">Fade</option>
+                                        <option value="harbor">Harbor</option>
+                                        <option value="gekko">Gekko</option>
+                                        <option value="deadlock">Deadlock</option>
+                                        <option value="clove">Clove</option>
+                                    </select>
+                                </div>
+                                <div class="form-group" style="grid-column: span 2;">
+                                    <label>Descripción</label>
+                                    <textarea placeholder="Instrucciones detalladas para este paso..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="button" class="add-step-btn" id="add-step-btn">+ Añadir paso</button>
+                    </div>
+                </div>
+                
+                <div class="form-group full-width">
+                    <button type="submit" class="upload-btn">Subir estrategia</button>
+                    <button type="button" class="cancel-btn" id="cancel-upload-btn">Cancelar</button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Página de creación de nueva play -->
+        <div class="create-play-page" id="create-play-page" style="display: none;">
+            <div class="back-button" id="back-to-main">
+                <span class="back-arrow">←</span> Volver al dashboard
+            </div>
+            
+            <h1 class="page-title">Crear nueva estrategia</h1>
+            
+            <div class="create-play-form">
+                <div class="form-section">
+                    <h2 class="section-title">Información básica</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="play-name">Nombre de la estrategia *</label>
+                            <input type="text" id="play-name" placeholder="Ej: Split B Rush" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="play-map">Mapa *</label>
+                            <select id="play-map" required>
+                                <option value="">Seleccionar mapa</option>
+                                <option value="ascent">Ascent</option>
+                                <option value="bind">Bind</option>
+                                <option value="haven">Haven</option>
+                                <option value="split">Split</option>
+                                <option value="icebox">Icebox</option>
+                                <option value="breeze">Breeze</option>
+                                <option value="fracture">Fracture</option>
+                                <option value="pearl">Pearl</option>
+                                <option value="lotus">Lotus</option>
+                                <option value="sunset">Sunset</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="play-side">Lado *</label>
+                            <select id="play-side" required>
+                                <option value="">Seleccionar lado</option>
+                                <option value="attack">Ataque</option>
+                                <option value="defense">Defensa</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="play-type">Tipo de estrategia</label>
+                            <select id="play-type">
+                                <option value="">Seleccionar tipo</option>
+                                <option value="execute">Execute</option>
+                                <option value="retake">Retake</option>
+                                <option value="default">Default</option>
+                                <option value="post-plant">Post-Plant</option>
+                                <option value="eco">Eco</option>
+                                <option value="pistol">Pistola</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="play-description">Descripción general *</label>
+                        <textarea id="play-description" placeholder="Describe la estrategia y su objetivo..." required></textarea>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h2 class="section-title">Archivos tácticos</h2>
+                    <div class="upload-area">
+                        <div class="upload-dropzone" id="map-upload">
+                            <div class="upload-icon">📤</div>
+                            <h3>Sube imágenes del mapa</h3>
+                            <p>Arrastra y suelta imágenes o haz clic para seleccionarlas</p>
+                            <input type="file" class="file-input" multiple accept="image/*">
+                        </div>
+                        
+                        <div class="uploaded-files">
+                            <h3>Archivos subidos</h3>
+                            <div class="preview-grid" id="upload-previews">
+                                <!-- Las miniaturas se mostrarán aquí -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h2 class="section-title">Pasos de la estrategia</h2>
+                    <p class="section-desc">Añade los pasos necesarios para ejecutar esta estrategia. Para cada paso, asocia un agente y describe qué debe hacer.</p>
+                    
+                    <div class="steps-container" id="create-steps-container">
+                        <!-- El primer paso viene por defecto -->
+                        <div class="step-box">
+                            <div class="step-header">
+                                <span class="step-number">1</span>
+                                <input type="text" class="step-title-input" placeholder="Título del paso">
+                                <button type="button" class="remove-step-btn">×</button>
+                            </div>
+                            <div class="step-content">
+                                <div class="agent-select">
+                                    <label>Agente</label>
+                                    <select class="agent-dropdown">
+                                        <option value="">Seleccionar agente</option>
+                                        <option value="jett">Jett</option>
+                                        <option value="phoenix">Phoenix</option>
+                                        <option value="sage">Sage</option>
+                                        <option value="sova">Sova</option>
+                                        <option value="brimstone">Brimstone</option>
+                                        <option value="viper">Viper</option>
+                                        <option value="cypher">Cypher</option>
+                                        <option value="reyna">Reyna</option>
+                                        <option value="killjoy">Killjoy</option>
+                                        <option value="skye">Skye</option>
+                                        <option value="yoru">Yoru</option>
+                                        <option value="astra">Astra</option>
+                                        <option value="kayo">KAY/O</option>
+                                        <option value="chamber">Chamber</option>
+                                        <option value="neon">Neon</option>
+                                        <option value="fade">Fade</option>
+                                        <option value="harbor">Harbor</option>
+                                        <option value="gekko">Gekko</option>
+                                        <option value="deadlock">Deadlock</option>
+                                        <option value="clove">Clove</option>
+                                        <option value="iso">Iso</option>
+                                    </select>
+                                </div>
+                                <div class="step-desc">
+                                    <label>Descripción</label>
+                                    <textarea placeholder="Instrucciones para este paso..."></textarea>
+                                </div>
+                                <div class="utility-types">
+                                    <label>Habilidades utilizadas (opcional)</label>
+                                    <div class="utility-checkboxes">
+                                        <label class="utility-label">
+                                            <input type="checkbox" value="smoke"> Humo
+                                        </label>
+                                        <label class="utility-label">
+                                            <input type="checkbox" value="flash"> Flash
+                                        </label>
+                                        <label class="utility-label">
+                                            <input type="checkbox" value="molly"> Molly
+                                        </label>
+                                        <label class="utility-label">
+                                            <input type="checkbox" value="ultimate"> Ultimate
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="button" class="add-step-btn" id="create-add-step">+ Añadir paso</button>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="save-play-btn">Guardar estrategia</button>
+                    <button type="button" class="cancel-create-btn" id="cancel-create-btn">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <div class="footer-logo">VALO<span>PLAN</span></div>
+                <p class="footer-tagline">Construye tácticas para tu equipo de Valorant</p>
+                <div class="social-links">
+                    <a href="#"><span>T</span></a>
+                    <a href="#"><span>D</span></a>
+                    <a href="#"><span>Y</span></a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h3>EXPLORAR</h3>
+                <ul>
+                    <li><a href="#">Equipos</a></li>
+                    <li><a href="#">Tácticas</a></li>
+                    <li><a href="#">Nodos</a></li>
+                    <li><a href="#">Panel táctico
