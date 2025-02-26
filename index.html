@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ValoPlan - Estrategias de Valorant</title>
+    <title>ValoStrat - Valorant Tactics & Strategy Platform</title>
     <style>
         :root {
-            --primary-color: #1f2937;
-            --accent-color: #ff4655;
-            --light-text: #f8f8f8;
-            --dark-text: #333;
-            --border-color: #e1e1e1;
-            --bg-color: #f1f5f9;
+            --primary: #ff4655;
+            --primary-dark: #dc3d4b;
+            --secondary: #0f1923;
+            --text: #ffffff;
+            --text-dark: #ebebeb;
+            --bg-light: #f5f5f5;
+            --bg-dark: #0f1923;
         }
         
         * {
@@ -22,1067 +23,894 @@
         }
         
         body {
-            background-color: var(--bg-color);
-            color: var(--dark-text);
+            background-color: #fff;
+            color: #333;
             line-height: 1.6;
         }
         
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
         header {
-            background-color: var(--primary-color);
-            color: var(--light-text);
-            padding: 1rem 2rem;
+            background-color: var(--secondary);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         
-        .banner {
-            background-color: #e9edf5;
-            padding: 0.5rem;
-            text-align: center;
-        }
-        
-        .banner a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: bold;
-        }
-        
         .logo {
-            font-size: 1.5rem;
+            font-size: 24px;
             font-weight: bold;
-            color: var(--light-text);
+            color: var(--text);
             text-decoration: none;
             display: flex;
             align-items: center;
         }
         
         .logo span {
-            color: var(--accent-color);
+            color: var(--primary);
         }
         
-        nav ul {
+        .nav-links {
             display: flex;
             list-style: none;
         }
         
-        nav ul li {
-            margin-left: 1.5rem;
+        .nav-links li {
+            margin-left: 30px;
         }
         
-        nav ul li a {
-            color: var(--light-text);
+        .nav-links a {
+            color: var(--text-dark);
             text-decoration: none;
-            padding: 0.5rem;
+            font-weight: 500;
             transition: color 0.3s;
         }
         
-        nav ul li a:hover {
-            color: var(--accent-color);
+        .nav-links a:hover {
+            color: var(--primary);
         }
         
         .auth-buttons {
             display: flex;
-            gap: 1rem;
+            align-items: center;
         }
         
-        .sign-in-btn {
+        .btn {
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .btn-outline {
             background: transparent;
-            color: var(--light-text);
-            border: none;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            font-weight: 500;
+            color: var(--text);
+            border: 1px solid var(--text);
+            margin-right: 10px;
         }
         
-        .get-started-btn {
-            background-color: var(--accent-color);
-            color: var(--light-text);
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 500;
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
         }
         
-        .add-play-btn {
-            background-color: #22c55e;
-            color: white;
+        .btn-primary {
+            background: var(--primary);
+            color: var(--text);
             border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 500;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background-color: var(--secondary);
+            color: var(--text);
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            margin-left: 0.5rem;
         }
         
-        .add-icon {
-            font-size: 1.2rem;
-            margin-right: 0.25rem;
-            font-weight: bold;
+        .hero-text {
+            flex: 0 0 50%;
         }
         
-        .main-content {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
+        .hero-text h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero-text h1 span {
+            color: var(--primary);
+        }
+        
+        .hero-text p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: var(--text-dark);
+        }
+        
+        .hero-image {
+            flex: 0 0 45%;
+            position: relative;
+        }
+        
+        .hero-image img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .tactics-card {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            width: 250px;
+            right: -20px;
+            top: 30px;
+        }
+        
+        .tactics-card h3 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .tactics-card-content {
+            color: #333;
+        }
+        
+        .agent-icons {
             display: flex;
-            flex-direction: column;
-        }
-        
-        .strategy-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1.5rem;
+            margin-top: 10px;
+            gap: 5px;
         }
         
         .agent-icon {
-            width: 60px;
-            height: 60px;
-            background-color: #fdba74;
+            width: 40px;
+            height: 40px;
+            background-color: #eee;
             border-radius: 50%;
+        }
+        
+        /* Teams Section */
+        .teams-section {
+            padding: 80px 0;
+            background-color: var(--bg-light);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-header span {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin: 10px 0;
+        }
+        
+        .section-header p {
+            max-width: 600px;
+            margin: 0 auto;
+            color: #666;
+        }
+        
+        .teams-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        .team-logo {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 150px;
+            height: 80px;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-right: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .team-logo img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        
+        .explore-btn {
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        /* Maps Section */
+        .maps-section {
+            padding: 80px 0;
+        }
+        
+        .maps-grid {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+        
+        .map-card {
+            width: 150px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        
+        .map-card.active {
+            box-shadow: 0 0 0 3px var(--primary);
+        }
+        
+        .map-card img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+        
+        .map-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .map-name {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 25, 35, 0.7);
             color: white;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-        
-        .strategy-title h1 {
-            font-size: 1.8rem;
-            margin-bottom: 0.3rem;
-        }
-        
-        .strategy-title p {
-            color: #666;
+            padding: 5px;
+            text-align: center;
+            font-weight: 500;
             font-size: 0.9rem;
         }
         
-        .add-to-team-btn {
-            background-color: #818cf8;
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            margin-left: auto;
-            cursor: pointer;
+        /* Tactics Section */
+        .tactics-section {
+            padding: 50px 0 80px;
+            background-color: var(--bg-light);
         }
         
-        .content-grid {
+        .tactics-grid {
             display: grid;
-            grid-template-columns: 1fr 350px;
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
         }
         
-        .map-container {
-            position: relative;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
+        .tactic-card {
+            background-color: white;
+            border-radius: 8px;
             overflow: hidden;
-            background-color: #1e1e1e;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
         
-        .map-carousel {
-            position: relative;
-            height: 500px;
+        .tactic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tactic-image {
+            height: 160px;
             overflow: hidden;
+            position: relative;
         }
         
-        .map-slide {
+        .tactic-image img {
             width: 100%;
             height: 100%;
-            display: none;
-            position: relative;
-        }
-        
-        .map-slide.active {
-            display: block;
-        }
-        
-        .map-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-        
-        .marker {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            border: 2px solid white;
-            transform: translate(-50%, -50%);
-            cursor: pointer;
-        }
-        
-        .marker-1 {
-            background-color: #4ade80;
-            top: 30%;
-            left: 20%;
-        }
-        
-        .marker-2 {
-            background-color: #60a5fa;
-            top: 70%;
-            left: 40%;
-        }
-        
-        .marker-3 {
-            background-color: #fb923c;
-            top: 50%;
-            left: 60%;
-        }
-        
-        .marker-4 {
-            background-color: #f43f5e;
-            top: 75%;
-            left: 80%;
-        }
-        
-        .marker-5 {
-            background-color: #facc15;
-            top: 50%;
-            left: 50%;
-        }
-        
-        .carousel-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(255, 255, 255, 0.5);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            font-size: 1.5rem;
-            z-index: 10;
-        }
-        
-        .prev {
-            left: 10px;
-        }
-        
-        .next {
-            right: 10px;
-        }
-        
-        .map-thumbnails {
-            display: flex;
-            padding: 10px;
-            background-color: #2a2a2a;
-            justify-content: center;
-        }
-        
-        .map-thumbnail {
-            width: 60px;
-            height: 60px;
-            margin: 0 5px;
-            border: 2px solid transparent;
-            cursor: pointer;
             object-fit: cover;
         }
         
-        .map-thumbnail.active {
-            border-color: var(--accent-color);
-        }
-        
-        .info-panels {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-        
-        .info-panel {
-            background-color: white;
-            border-radius: 8px;
-            padding: 1.5rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-        
-        .info-panel h2 {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        .board-steps {
-            list-style: none;
-        }
-        
-        .step-item {
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #f0f0f0;
-        }
-        
-        .step-item:last-child {
-            margin-bottom: 0;
-            padding-bottom: 0;
-            border-bottom: none;
-        }
-        
-        .step-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 0.5rem;
-        }
-        
-        .step-icon {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .tactic-title {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
             color: white;
-            font-size: 0.7rem;
-            margin-right: 0.5rem;
-        }
-        
-        .step-title {
+            padding: 10px;
             font-weight: 600;
         }
         
-        .step-agent {
-            font-style: italic;
-            color: #666;
-            font-size: 0.8rem;
+        .tactic-info {
+            padding: 15px;
         }
         
-        .step-description {
-            font-size: 0.9rem;
+        .tactic-team {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .tactic-team img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .tactic-meta {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .tactic-map, .tactic-side {
+            background-color: #f0f0f0;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
             color: #555;
         }
         
-        .videos-list, .node-list {
-            list-style: none;
-        }
-        
-        .video-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 0.75rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 1px solid #f0f0f0;
-        }
-        
-        .video-item:last-child {
-            margin-bottom: 0;
-            padding-bottom: 0;
-            border-bottom: none;
-        }
-        
-        .video-thumbnail {
-            width: 80px;
-            height: 45px;
-            object-fit: cover;
-            margin-right: 0.75rem;
-            border-radius: 4px;
-        }
-        
-        .video-title {
-            flex-grow: 1;
-            font-size: 0.9rem;
-        }
-        
-        .empty-message {
-            color: #999;
-            font-style: italic;
-            text-align: center;
-            padding: 1rem 0;
-        }
-        
-        .upload-section {
-            margin-top: 2rem;
-            background-color: white;
-            border-radius: 8px;
-            padding: 1.5rem;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-        
-        .upload-section h2 {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-        }
-        
-        .upload-form {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-        
-        .form-group {
-            margin-bottom: 1rem;
-        }
-        
-        .form-group.full-width {
-            grid-column: span 2;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-        
-        .form-group input, .form-group textarea, .form-group select {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            font-size: 0.9rem;
-        }
-        
-        .form-group textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-        
-        .steps-container {
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-        }
-        
-        .steps-container h3 {
-            margin-bottom: 0.75rem;
-        }
-        
-        .step-form {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #f0f0f0;
-        }
-        
-        .add-step-btn, .upload-btn {
-            background-color: var(--accent-color);
+        .add-strat-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary);
             color: white;
-            border: none;
-            padding: 0.75rem 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 500;
-            text-align: center;
-        }
-        
-        .add-step-btn {
-            background-color: #4b5563;
-        }
-        
-        footer {
-            background-color: var(--primary-color);
-            color: var(--light-text);
-            padding: 3rem 2rem;
-            margin-top: 4rem;
-        }
-        
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 2rem;
-        }
-        
-        .footer-logo {
-            grid-column: 1;
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-        
-        .footer-logo span {
-            color: var(--accent-color);
-        }
-        
-        .footer-tagline {
-            color: #9ca3af;
-            margin-bottom: 1.5rem;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 1rem;
-        }
-        
-        .social-links a {
-            color: var(--light-text);
-            text-decoration: none;
-            width: 32px;
-            height: 32px;
             border-radius: 50%;
-            background-color: #4b5563;
             display: flex;
             justify-content: center;
             align-items: center;
+            font-size: 24px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 99;
         }
         
-        .footer-links {
-            grid-column: 2;
+        .add-strat-btn:hover {
+            background-color: var(--primary-dark);
+            transform: scale(1.05);
         }
         
-        .footer-links h3, .maps-links h3 {
+        /* Features Section */
+        .features-section {
+            padding: 80px 0;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .feature-card {
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 70, 85, 0.1);
+            color: var(--primary);
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .feature-title {
+            font-weight: 600;
+            margin-bottom: 10px;
             font-size: 1.1rem;
-            margin-bottom: 1.25rem;
-            color: #e5e7eb;
         }
         
-        .footer-links ul, .maps-links ul {
+        .feature-description {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 0;
+            background-color: var(--secondary);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .cta-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: var(--text-dark);
+        }
+        
+        .cta-content p span {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-column ul {
             list-style: none;
         }
         
-        .footer-links li, .maps-links li {
-            margin-bottom: 0.75rem;
+        .footer-column ul li {
+            margin-bottom: 10px;
         }
         
-        .footer-links a, .maps-links a {
-            color: #9ca3af;
+        .footer-column ul li a {
+            color: var(--text-dark);
             text-decoration: none;
             transition: color 0.3s;
         }
         
-        .footer-links a:hover, .maps-links a:hover {
-            color: var(--light-text);
-        }
-        
-        .maps-links {
-            grid-column: 3;
+        .footer-column ul li a:hover {
+            color: var(--primary);
         }
         
         .footer-bottom {
-            max-width: 1200px;
-            margin: 2rem auto 0;
-            padding-top: 2rem;
-            border-top: 1px solid #4b5563;
             text-align: center;
-            color: #9ca3af;
-            font-size: 0.9rem;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        /* Estilos para el archivo uploader */
-        .file-upload {
-            position: relative;
-            display: inline-block;
-            width: 100%;
-        }
-        
-        .file-upload-label {
+        .social-icons {
             display: flex;
-            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
             justify-content: center;
-            border: 2px dashed #ccc;
-            border-radius: 4px;
-            padding: 2rem 1rem;
-            text-align: center;
-            cursor: pointer;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
             transition: all 0.3s;
         }
         
-        .file-upload-label:hover {
-            border-color: var(--accent-color);
+        .social-icon:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
         }
         
-        .file-upload-input {
-            position: absolute;
-            left: 0;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            cursor: pointer;
+        .copyright {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
         }
         
-        .preview-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-        
-        .preview-item {
-            position: relative;
-            width: 100px;
-            height: 100px;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        
-        .preview-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .remove-preview {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
-
         @media (max-width: 768px) {
-            .content-grid {
-                grid-template-columns: 1fr;
+            .hero-content {
+                flex-direction: column;
             }
             
-            .footer-content {
-                grid-template-columns: 1fr;
+            .hero-text, .hero-image {
+                flex: 0 0 100%;
             }
             
-            .upload-form {
-                grid-template-columns: 1fr;
+            .hero-image {
+                margin-top: 40px;
             }
             
-            .form-group.full-width {
-                grid-column: span 1;
+            .tactics-card {
+                position: relative;
+                right: auto;
+                top: auto;
+                margin-top: -30px;
+                margin-left: 20px;
+                margin-right: 20px;
+                z-index: 2;
+            }
+            
+            .nav-links {
+                display: none;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Banner superior -->
-    <div class="banner">
-        ValoPlan está disponible para adquisición. Si estás interesado, <a href="#">contáctanos</a>
-    </div>
-    
-    <!-- Barra de navegación -->
+    <!-- Header Navigation -->
     <header>
-        <a href="#" class="logo">VALO<span>PLAN</span></a>
-        <nav>
-            <ul>
-                <li><a href="#">Táctica</a></li>
-                <li><a href="#">Equipos</a></li>
-                <li><a href="#">Estrategias</a></li>
-                <li><a href="#">Nodos</a></li>
-            </ul>
-        </nav>
-        <div class="auth-buttons">
-            <button class="sign-in-btn">Iniciar sesión</button>
-            <button class="get-started-btn">Registrarse</button>
-            <button class="add-play-btn" id="add-play-btn"><i class="add-icon">+</i> Agregar Play</button>
+        <div class="container">
+            <div class="navbar">
+                <a href="#" class="logo">VALO<span>STRAT</span></a>
+                
+                <ul class="nav-links">
+                    <li><a href="#">Tactical Board</a></li>
+                    <li><a href="#">Teams</a></li>
+                    <li><a href="#">Tactics</a></li>
+                    <li><a href="#">Agents</a></li>
+                </ul>
+                
+                <div class="auth-buttons">
+                    <a href="#" class="btn btn-outline">Sign in</a>
+                    <a href="#" class="btn btn-primary">Get started</a>
+                </div>
+            </div>
         </div>
     </header>
     
-    <!-- Contenido principal -->
-    <div class="main-content">
-        <!-- Cabecera de la estrategia -->
-        <div class="strategy-header">
-            <div class="agent-icon">J</div>
-            <div class="strategy-title">
-                <h1>A Site Retake</h1>
-                <p>Ascent • Valorant • Defensa</p>
-            </div>
-            <button class="add-to-team-btn">Añadir a tu equipo</button>
-        </div>
-        
-        <!-- Contenido grid -->
-        <div class="content-grid">
-            <!-- Contenedor del mapa -->
-            <div class="map-container">
-                <div class="map-carousel">
-                    <!-- Slides del carrusel -->
-                    <div class="map-slide active">
-                        <img src="/api/placeholder/800/500" alt="Mapa de estrategia 1">
-                        <div class="marker marker-1"></div>
-                        <div class="marker marker-2"></div>
-                        <div class="marker marker-3"></div>
-                    </div>
-                    <div class="map-slide">
-                        <img src="/api/placeholder/800/500" alt="Mapa de estrategia 2">
-                        <div class="marker marker-3"></div>
-                        <div class="marker marker-4"></div>
-                        <div class="marker marker-5"></div>
-                    </div>
-                    <div class="map-slide">
-                        <img src="/api/placeholder/800/500" alt="Mapa de estrategia 3">
-                        <div class="marker marker-1"></div>
-                        <div class="marker marker-5"></div>
-                    </div>
-                    
-                    <!-- Botones de navegación -->
-                    <button class="carousel-nav prev">&#10094;</button>
-                    <button class="carousel-nav next">&#10095;</button>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Build Tactics for your <span>Valorant Team</span></h1>
+                    <p>Explore pro teams tactics and improve your game knowledge and teamplay by mastering abilities and combinations.</p>
+                    <a href="#" class="btn btn-primary">Get started. For free!</a>
                 </div>
                 
-                <!-- Miniaturas del carrusel -->
-                <div class="map-thumbnails">
-                    <img src="/api/placeholder/60/60" alt="Miniatura 1" class="map-thumbnail active" data-index="0">
-                    <img src="/api/placeholder/60/60" alt="Miniatura 2" class="map-thumbnail" data-index="1">
-                    <img src="/api/placeholder/60/60" alt="Miniatura 3" class="map-thumbnail" data-index="2">
+                <div class="hero-image">
+                    <img src="/api/placeholder/400/320" alt="Valorant Tactical Interface">
+                    <div class="tactics-card">
+                        <h3>Sentinels Inferno A split</h3>
+                        <div class="tactics-card-content">
+                            <div class="agent-icons">
+                                <div class="agent-icon"></div>
+                                <div class="agent-icon"></div>
+                                <div class="agent-icon"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Pro Teams Section -->
+    <section class="teams-section">
+        <div class="container">
+            <div class="section-header">
+                <span>PRO TEAMS</span>
+                <h2>Get Inspired by the Pros</h2>
+                <p>Accelerate your building team process by learning pro teams tactics. You can add them to your tactics and even edit them to make some variations that feet your needs.</p>
+            </div>
+            
+            <div class="teams-grid">
+                <div class="team-logo">
+                    <img src="/api/placeholder/120/60" alt="Sentinels">
+                </div>
+                <div class="team-logo">
+                    <img src="/api/placeholder/120/60" alt="100 Thieves">
+                </div>
+                <div class="team-logo">
+                    <img src="/api/placeholder/120/60" alt="Fnatic">
+                </div>
+                <div class="team-logo">
+                    <img src="/api/placeholder/120/60" alt="G2">
+                </div>
+                <div class="team-logo">
+                    <img src="/api/placeholder/120/60" alt="Liquid">
+                </div>
+                <div class="team-logo">
+                    <img src="/api/placeholder/120/60" alt="Cloud9">
                 </div>
             </div>
             
-            <!-- Paneles de información -->
-            <div class="info-panels">
-                <!-- Panel de pasos -->
-                <div class="info-panel">
-                    <h2>Panel 1 de 2</h2>
-                    <ul class="board-steps">
-                        <li class="step-item">
-                            <div class="step-header">
-                                <div class="step-icon" style="background-color: #4ade80;">1</div>
-                                <div class="step-title">Posición principal</div>
-                            </div>
-                            <div class="step-agent">Sage • Ascent • Defensa</div>
-                            <p class="step-description">Coloca un muro en la entrada principal para bloquear el avance enemigo. Usa slow orb para ralentizar a los que intenten pasar.</p>
-                        </li>
-                        <li class="step-item">
-                            <div class="step-header">
-                                <div class="step-icon" style="background-color: #60a5fa;">2</div>
-                                <div class="step-title">Control de mid</div>
-                            </div>
-                            <div class="step-agent">Killjoy • Ascent</div>
-                            <p class="step-description">Posiciona la torreta para vigilar mid. Usa el alarmabot para detectar flanqueos. Prepara ult para retake.</p>
-                        </li>
-                        <li class="step-item">
-                            <div class="step-header">
-                                <div class="step-icon" style="background-color: #fb923c;">3</div>
-                                <div class="step-title">Retake coordinado</div>
-                            </div>
-                            <div class="step-agent">Phoenix • Ascent</div>
-                            <p class="step-description">Usa flash para entrar por la puerta principal. Coordina con Brimstone para usar sus habilidades y limpiar ángulos comunes.</p>
-                        </li>
-                    </ul>
+            <div class="explore-btn">
+                <a href="#" class="btn btn-primary">Explore Valorant pro teams</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Maps Selection Section -->
+    <section class="maps-section">
+        <div class="container">
+            <div class="section-header">
+                <span>VALORANT MAPS</span>
+                <h2>Select a Map to See Strategies</h2>
+            </div>
+            
+            <div class="maps-grid">
+                <div class="map-card active">
+                    <img src="/api/placeholder/150/100" alt="Haven">
+                    <div class="map-name">Haven</div>
+                </div>
+                <div class="map-card">
+                    <img src="/api/placeholder/150/100" alt="Bind">
+                    <div class="map-name">Bind</div>
+                </div>
+                <div class="map-card">
+                    <img src="/api/placeholder/150/100" alt="Split">
+                    <div class="map-name">Split</div>
+                </div>
+                <div class="map-card">
+                    <img src="/api/placeholder/150/100" alt="Ascent">
+                    <div class="map-name">Ascent</div>
+                </div>
+                <div class="map-card">
+                    <img src="/api/placeholder/150/100" alt="Icebox">
+                    <div class="map-name">Icebox</div>
+                </div>
+                <div class="map-card">
+                    <img src="/api/placeholder/150/100" alt="Breeze">
+                    <div class="map-name">Breeze</div>
+                </div>
+                <div class="map-card">
+                    <img src="/api/placeholder/150/100" alt="Fracture">
+                    <div class="map-name">Fracture</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Tactics Section -->
+    <section class="tactics-section">
+        <div class="container">
+            <div class="section-header">
+                <span>TACTICS</span>
+                <h2>Top Trends Tactics</h2>
+                <p>Simple tactics can make your official matches way more easier. Start exploring them now and copy them to your playbooks.</p>
+            </div>
+            
+            <div class="tactics-grid">
+                <div class="tactic-card">
+                    <div class="tactic-image">
+                        <img src="/api/placeholder/300/160" alt="Haven A Site Execute">
+                        <div class="tactic-title">SENTINELS A SITE EXECUTE</div>
+                    </div>
+                    <div class="tactic-info">
+                        <div class="tactic-team">
+                            <img src="/api/placeholder/30/30" alt="Sentinels Logo">
+                            <span>Sentinels</span>
+                        </div>
+                        <div class="tactic-meta">
+                            <div class="tactic-map">Haven</div>
+                            <div class="tactic-side">Attackers</div>
+                        </div>
+                    </div>
                 </div>
                 
-                <!-- Panel de nodos -->
-                <div class="info-panel">
-                    <h2>Nodos</h2>
-                    <p class="empty-message">No hay nodos adjuntos</p>
+                <div class="tactic-card">
+                    <div class="tactic-image">
+                        <img src="/api/placeholder/300/160" alt="Haven B Control">
+                        <div class="tactic-title">100T MID CONTROL</div>
+                    </div>
+                    <div class="tactic-info">
+                        <div class="tactic-team">
+                            <img src="/api/placeholder/30/30" alt="100 Thieves Logo">
+                            <span>100 Thieves</span>
+                        </div>
+                        <div class="tactic-meta">
+                            <div class="tactic-map">Haven</div>
+                            <div class="tactic-side">Attackers</div>
+                        </div>
+                    </div>
                 </div>
                 
-                <!-- Panel de videos -->
-                <div class="info-panel">
-                    <h2>Videos</h2>
-                    <ul class="videos-list">
-                        <li class="video-item">
-                            <img src="/api/placeholder/80/45" alt="Video thumbnail" class="video-thumbnail">
-                            <div class="video-title">Ascent Retake A Site con Sage (Valorant Ranked 2025)</div>
-                        </li>
-                    </ul>
+                <div class="tactic-card">
+                    <div class="tactic-image">
+                        <img src="/api/placeholder/300/160" alt="Haven C Retake">
+                        <div class="tactic-title">FNATIC C RETAKE</div>
+                    </div>
+                    <div class="tactic-info">
+                        <div class="tactic-team">
+                            <img src="/api/placeholder/30/30" alt="Fnatic Logo">
+                            <span>Fnatic</span>
+                        </div>
+                        <div class="tactic-meta">
+                            <div class="tactic-map">Haven</div>
+                            <div class="tactic-side">Defenders</div>
+                        </div>
+                    </div>
                 </div>
                 
-                <!-- Panel de créditos -->
-                <div class="info-panel">
-                    <h2>Créditos</h2>
-                    <p>Créditos a ProGuides por analizar esta táctica.<br>
-                    Sigue su canal para más contenido!</p>
+                <div class="tactic-card">
+                    <div class="tactic-image">
+                        <img src="/api/placeholder/300/160" alt="Haven Split Push">
+                        <div class="tactic-title">LIQUID SPLIT PUSH</div>
+                    </div>
+                    <div class="tactic-info">
+                        <div class="tactic-team">
+                            <img src="/api/placeholder/30/30" alt="Team Liquid Logo">
+                            <span>Team Liquid</span>
+                        </div>
+                        <div class="tactic-meta">
+                            <div class="tactic-map">Haven</div>
+                            <div class="tactic-side">Attackers</div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+            
+            <div class="explore-btn">
+                <a href="#" class="btn btn-primary">Explore Valorant pro tactics</a>
             </div>
         </div>
         
-        <!-- Sección de carga de nuevas estrategias -->
-        <div class="upload-section" id="upload-section" style="display: none;">
-            <h2>Subir nueva estrategia</h2>
-            <form class="upload-form">
-                <div class="form-group">
-                    <label for="strategy-name">Nombre de la estrategia</label>
-                    <input type="text" id="strategy-name" placeholder="Ej: A Site Retake">
-                </div>
-                
-                <div class="form-group">
-                    <label for="map-select">Mapa</label>
-                    <select id="map-select">
-                        <option value="">Seleccionar mapa</option>
-                        <option value="ascent">Ascent</option>
-                        <option value="bind">Bind</option>
-                        <option value="haven">Haven</option>
-                        <option value="split">Split</option>
-                        <option value="icebox">Icebox</option>
-                        <option value="breeze">Breeze</option>
-                        <option value="fracture">Fracture</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="side-select">Lado</label>
-                    <select id="side-select">
-                        <option value="">Seleccionar lado</option>
-                        <option value="attack">Ataque</option>
-                        <option value="defense">Defensa</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="difficulty-select">Dificultad</label>
-                    <select id="difficulty-select">
-                        <option value="">Seleccionar dificultad</option>
-                        <option value="easy">Fácil</option>
-                        <option value="medium">Media</option>
-                        <option value="hard">Difícil</option>
-                    </select>
-                </div>
-                
-                <div class="form-group full-width">
-                    <label for="description">Descripción general</label>
-                    <textarea id="description" placeholder="Describe brevemente la estrategia..."></textarea>
-                </div>
-                
-                <div class="form-group full-width">
-                    <label>Imágenes del mapa (máx. 5)</label>
-                    <div class="file-upload">
-                        <label class="file-upload-label">
-                            <span>Arrastra imágenes aquí o haz clic para seleccionarlas</span>
-                            <input type="file" class="file-upload-input" multiple accept="image/*">
-                        </label>
-                        <div class="preview-container" id="preview-container"></div>
-                    </div>
-                </div>
-                
-                <div class="form-group full-width">
-                    <div class="steps-container">
-                        <h3>Pasos de la estrategia</h3>
-                        <div id="steps-container">
-                            <!-- Primer paso por defecto -->
-                            <div class="step-form">
-                                <div class="form-group">
-                                    <label>Título del paso</label>
-                                    <input type="text" placeholder="Ej: Posicionamiento inicial">
-                                </div>
-                                <div class="form-group">
-                                    <label>Agente</label>
-                                    <select>
-                                        <option value="">Seleccionar agente</option>
-                                        <option value="jett">Jett</option>
-                                        <option value="phoenix">Phoenix</option>
-                                        <option value="sage">Sage</option>
-                                        <option value="sova">Sova</option>
-                                        <option value="brimstone">Brimstone</option>
-                                        <option value="viper">Viper</option>
-                                        <option value="cypher">Cypher</option>
-                                        <option value="reyna">Reyna</option>
-                                        <option value="killjoy">Killjoy</option>
-                                        <option value="skye">Skye</option>
-                                        <option value="yoru">Yoru</option>
-                                        <option value="astra">Astra</option>
-                                        <option value="kayo">KAY/O</option>
-                                        <option value="chamber">Chamber</option>
-                                        <option value="neon">Neon</option>
-                                        <option value="fade">Fade</option>
-                                        <option value="harbor">Harbor</option>
-                                        <option value="gekko">Gekko</option>
-                                        <option value="deadlock">Deadlock</option>
-                                        <option value="clove">Clove</option>
-                                    </select>
-                                </div>
-                                <div class="form-group" style="grid-column: span 2;">
-                                    <label>Descripción</label>
-                                    <textarea placeholder="Instrucciones detalladas para este paso..."></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <button type="button" class="add-step-btn" id="add-step-btn">+ Añadir paso</button>
-                    </div>
-                </div>
-                
-                <div class="form-group full-width">
-                    <button type="submit" class="upload-btn">Subir estrategia</button>
-                    <button type="button" class="cancel-btn" id="cancel-upload-btn">Cancelar</button>
-                </div>
-            </form>
-        </div>
-        
-        <!-- Página de creación de nueva play -->
-        <div class="create-play-page" id="create-play-page" style="display: none;">
-            <div class="back-button" id="back-to-main">
-                <span class="back-arrow">←</span> Volver al dashboard
+        <div class="add-strat-btn">+</div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <div class="section-header">
+                <span>EVERYTHING YOU NEED</span>
+                <h2>Powerful Features</h2>
+                <p>ValoStrat is the perfect platform to progress consistently as a team and capitalize on what you've learned. No more messy google drives to organize your playbook!</p>
             </div>
             
-            <h1 class="page-title">Crear nueva estrategia</h1>
-            
-            <div class="create-play-form">
-                <div class="form-section">
-                    <h2 class="section-title">Información básica</h2>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="play-name">Nombre de la estrategia *</label>
-                            <input type="text" id="play-name" placeholder="Ej: Split B Rush" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="play-map">Mapa *</label>
-                            <select id="play-map" required>
-                                <option value="">Seleccionar mapa</option>
-                                <option value="ascent">Ascent</option>
-                                <option value="bind">Bind</option>
-                                <option value="haven">Haven</option>
-                                <option value="split">Split</option>
-                                <option value="icebox">Icebox</option>
-                                <option value="breeze">Breeze</option>
-                                <option value="fracture">Fracture</option>
-                                <option value="pearl">Pearl</option>
-                                <option value="lotus">Lotus</option>
-                                <option value="sunset">Sunset</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="play-side">Lado *</label>
-                            <select id="play-side" required>
-                                <option value="">Seleccionar lado</option>
-                                <option value="attack">Ataque</option>
-                                <option value="defense">Defensa</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="play-type">Tipo de estrategia</label>
-                            <select id="play-type">
-                                <option value="">Seleccionar tipo</option>
-                                <option value="execute">Execute</option>
-                                <option value="retake">Retake</option>
-                                <option value="default">Default</option>
-                                <option value="post-plant">Post-Plant</option>
-                                <option value="eco">Eco</option>
-                                <option value="pistol">Pistola</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group full-width">
-                        <label for="play-description">Descripción general *</label>
-                        <textarea id="play-description" placeholder="Describe la estrategia y su objetivo..." required></textarea>
-                    </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">✓</div>
+                    <h3 class="feature-title">Create playbooks</h3>
+                    <p class="feature-description">Organize your tactics into playbooks. Choose to share it to the community or make it private.</p>
                 </div>
                 
-                <div class="form-section">
-                    <h2 class="section-title">Archivos tácticos</h2>
-                    <div class="upload-area">
-                        <div class="upload-dropzone" id="map-upload">
-                            <div class="upload-icon">📤</div>
-                            <h3>Sube imágenes del mapa</h3>
-                            <p>Arrastra y suelta imágenes o haz clic para seleccionarlas</p>
-                            <input type="file" class="file-input" multiple accept="image/*">
-                        </div>
-                        
-                        <div class="uploaded-files">
-                            <h3>Archivos subidos</h3>
-                            <div class="preview-grid" id="upload-previews">
-                                <!-- Las miniaturas se mostrarán aquí -->
-                            </div>
-                        </div>
-                    </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✓</div>
+                    <h3 class="feature-title">Invite your teammates</h3>
+                    <p class="feature-description">Invite your teammates to your playbook. They will have instant access to your tactics.</p>
                 </div>
                 
-                <div class="form-section">
-                    <h2 class="section-title">Pasos de la estrategia</h2>
-                    <p class="section-desc">Añade los pasos necesarios para ejecutar esta estrategia. Para cada paso, asocia un agente y describe qué debe hacer.</p>
-                    
-                    <div class="steps-container" id="create-steps-container">
-                        <!-- El primer paso viene por defecto -->
-                        <div class="step-box">
-                            <div class="step-header">
-                                <span class="step-number">1</span>
-                                <input type="text" class="step-title-input" placeholder="Título del paso">
-                                <button type="button" class="remove-step-btn">×</button>
-                            </div>
-                            <div class="step-content">
-                                <div class="agent-select">
-                                    <label>Agente</label>
-                                    <select class="agent-dropdown">
-                                        <option value="">Seleccionar agente</option>
-                                        <option value="jett">Jett</option>
-                                        <option value="phoenix">Phoenix</option>
-                                        <option value="sage">Sage</option>
-                                        <option value="sova">Sova</option>
-                                        <option value="brimstone">Brimstone</option>
-                                        <option value="viper">Viper</option>
-                                        <option value="cypher">Cypher</option>
-                                        <option value="reyna">Reyna</option>
-                                        <option value="killjoy">Killjoy</option>
-                                        <option value="skye">Skye</option>
-                                        <option value="yoru">Yoru</option>
-                                        <option value="astra">Astra</option>
-                                        <option value="kayo">KAY/O</option>
-                                        <option value="chamber">Chamber</option>
-                                        <option value="neon">Neon</option>
-                                        <option value="fade">Fade</option>
-                                        <option value="harbor">Harbor</option>
-                                        <option value="gekko">Gekko</option>
-                                        <option value="deadlock">Deadlock</option>
-                                        <option value="clove">Clove</option>
-                                        <option value="iso">Iso</option>
-                                    </select>
-                                </div>
-                                <div class="step-desc">
-                                    <label>Descripción</label>
-                                    <textarea placeholder="Instrucciones para este paso..."></textarea>
-                                </div>
-                                <div class="utility-types">
-                                    <label>Habilidades utilizadas (opcional)</label>
-                                    <div class="utility-checkboxes">
-                                        <label class="utility-label">
-                                            <input type="checkbox" value="smoke"> Humo
-                                        </label>
-                                        <label class="utility-label">
-                                            <input type="checkbox" value="flash"> Flash
-                                        </label>
-                                        <label class="utility-label">
-                                            <input type="checkbox" value="molly"> Molly
-                                        </label>
-                                        <label class="utility-label">
-                                            <input type="checkbox" value="ultimate"> Ultimate
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <button type="button" class="add-step-btn" id="create-add-step">+ Añadir paso</button>
+                <div class="feature-card">
+                    <div class="feature-icon">✓</div>
+                    <h3 class="feature-title">Copy pro tactics</h3>
+                    <p class="feature-description">Copy pro teams tactics and integrate them into your playbooks.</p>
                 </div>
                 
-                <div class="form-actions">
-                    <button type="button" class="save-play-btn">Guardar estrategia</button>
-                    <button type="button" class="cancel-create-btn" id="cancel-create-btn">Cancelar</button>
+                <div class="feature-card">
+                    <div class="feature-icon">✓</div>
+                    <h3 class="feature-title">Tactical Boards</h3>
+                    <p class="feature-description">Create seasonal tactics with our tactical board. Create unlimited boards for one tactic.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">✓</div>
+                    <h3 class="feature-title">Agent abilities and combos</h3>
+                    <p class="feature-description">Explore our nades and combos and link them to your tactics. It's easier to remember!</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">✓</div>
+                    <h3 class="feature-title">Link YouTube videos</h3>
+                    <p class="feature-description">Sometimes, a video is way more efficient than a thousand words. Just link them to your tactics.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">✓</div>
+                    <h3 class="feature-title">Roles management</h3>
+                    <p class="feature-description">Leader, Strategist, Coach... Assign the role you need for each teammates.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">✓</div>
+                    <h3 class="feature-title">Tags management</h3>
+                    <p class="feature-description">We know you like to keep your playbook clean and well organized.</p>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to dive in?</h2>
+                <p>Start learning from <span>pro today</span>.</p>
+                <a href="#" class="btn btn-primary">Get started</a>
+            </div>
+        </div>
+    </section>
     
     <!-- Footer -->
     <footer>
-        <div class="footer-content">
-            <div>
-                <div class="footer-logo">VALO<span>PLAN</span></div>
-                <p class="footer-tagline">Construye tácticas para tu equipo de Valorant</p>
-                <div class="social-links">
-                    <a href="#"><span>T</span></a>
-                    <a href="#"><span>D</span></a>
-                    <a href="#"><span>Y</span></a>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>EXPLORE</h3>
+                    <ul>
+                        <li><a href="#">Teams</a></li>
+                        <li><a href="#">Tactics</a></li>
+                        <li><a href="#">Agents</a></li>
+                        <li><a href="#">Tactical board</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>MAPS</h3>
+                    <ul>
+                        <li><a href="#">Haven tactics</a></li>
+                        <li><a href="#">Bind tactics</a></li>
+                        <li><a href="#">Split tactics</a></li>
+                        <li><a href="#">Ascent tactics</a></li>
+                        <li><a href="#">Icebox tactics</a></li>
+                        <li><a href="#">Breeze tactics</a></li>
+                        <li><a href="#">Fracture tactics</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>ABOUT US</h3>
+                    <ul>
+                        <li><a href="#">Our motivations</a></li>
+                        <li><a href="#">Contact us</a></li>
+                        <li><a href="#">Privacy policy</a></li>
+                    </ul>
                 </div>
             </div>
             
-            <div class="footer-links">
-                <h3>EXPLORAR</h3>
-                <ul>
-                    <li><a href="#">Equipos</a></li>
-                    <li><a href="#">Tácticas</a></li>
-                    <li><a href="#">Nodos</a></li>
-                    <li><a href="#">Panel táctico
+            <div class="footer-bottom">
+                <div class="social-icons">
+                    <a href="#" class="social-icon">𝕏</a>
+                    <a href="#" class="social-icon">IG</a>
+                    <a href="#" class="social-icon">YT</a>
+                </div>
+                
+                <div class="copyright">
+                    © 2025 ValoStrat, Inc. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+</html>
