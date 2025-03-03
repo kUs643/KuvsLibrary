@@ -935,8 +935,7 @@ function Playbook() {
                         )}
                       </div>
                       <span>{map.name}</span>
-                    </div>
-                   </div>
+                    </div >
                   </div>
                 ))}
               </div>
