@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Tungsten';
+  src: url('https://db.onlinewebfonts.com/t/561f38b1f4570de0fb8a39d691ab058c.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@layer base {
+  :root {
+    --valorant-red: #FF4655;
+    --valorant-dark: #0F1923;
+    --valorant-light: #ECE8E1;
+    --kuvsbook-purple: #802BB1;
+    --kuvsbook-dark-purple: #2D283E;
+    --kuvsbook-darker: #1E1A25;
+    --kuvsbook-light-purple: #564F6F;
+  }
+  
+  body {
+    @apply bg-[#1E1A25] text-white;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+.logo-text {
+  font-family: 'Tungsten', sans-serif;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.map-card {
+  @apply relative overflow-hidden rounded-lg transition-all duration-300 hover:scale-105;
+}
+
+.map-card::after {
+  content: '';
+  @apply absolute inset-0 bg-gradient-to-t from-black/70 to-transparent;
+}
+
+.valorant-button {
+  @apply relative px-8 py-3 bg-[#FF4655] text-white font-bold uppercase tracking-wider
+         hover:bg-[#FF5865] transition-all duration-300 rounded
+         before:content-[''] before:absolute before:inset-0 before:border-2 
+         before:border-[#FF4655] before:rounded before:-translate-x-1 before:-translate-y-1;
+}
+
+.sidebar-icon {
+  @apply p-3 rounded-lg transition-all flex items-center justify-center;
+}
+
+.sidebar-icon.active {
+  @apply bg-[#802BB1] text-white;
+}
+
+.sidebar-icon:not(.active) {
+  @apply text-gray-400 hover:text-white hover:bg-[#2D283E];
+}
+
+.card {
+  @apply bg-[#2D283E] rounded-xl overflow-hidden shadow-lg;
+}
+
+.progress-bar {
+  @apply h-2 rounded-full bg-gray-700 overflow-hidden;
+}
+
+.progress-bar-fill {
+  @apply h-full rounded-full;
+}
+
+.attendance-present {
+  @apply bg-green-500;
+}
+
+.attendance-absent {
+  @apply bg-red-500;
+}
+
+.attendance-tournament {
+  @apply bg-blue-500;
+}
+
+.attendance-justified {
+  @apply bg-orange-500;
+}
+
+.attendance-late {
+  @apply bg-yellow-500;
+}
+
+.attendance-issues {
+  @apply bg-purple-500;
+}
+
+/* Navigation icon styles */
+.nav-icon {
+  @apply transition-colors duration-200 p-2 rounded-full hover:bg-white/10;
+}
+
+/* Main content padding for fixed header */
+.main-content {
+  @apply pt-16;
+}
