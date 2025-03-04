@@ -7,5 +7,5 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
-  base: '/KuvsLibrary/',
+  base: '/KuvsLibrary/', // Set the base path for GitHub Pages
 });
