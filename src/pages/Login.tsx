@@ -1,30 +1,44 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff, AlertCircle } from 'lucide-react';
+import logo from '/src/components/logoMesa de trabajo 1.png';
 
 const Login = ({ onLogin }) => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    
-    if (!username.trim() || !password.trim()) {
-      setError('Please enter both username and password');
-      return;
-    }
-    
     setIsLoading(true);
-    
-    // Call the login function passed from App component
-    const result = onLogin({ username, password, rememberMe });
-    
-    if (!result.success) {
-      setError(result.message || 'Invalid username or password');
+
+    try {
+      // Special case for admin login
+      if (email.toLowerCase() === 'kuvs' && password === 'nintendoiswack123') {
+        const result = await onLogin({ 
+          email: 'kuvs@example.com', 
+          password: 'nintendoiswack123' 
+        });
+        
+        if (!result.success) {
+          throw new Error(result.message || 'Login failed');
+        }
+        return;
+      }
+
+      // Regular user login - append @example.com if no email is provided
+      const loginEmail = email.includes('@') ? email : `${email}@example.com`;
+      const result = await onLogin({ email: loginEmail, password });
+      
+      if (!result.success) {
+        throw new Error(result.message || 'Login failed');
+      }
+    } catch (error) {
+      setError('Invalid email or password');
+    } finally {
       setIsLoading(false);
     }
   };
@@ -44,9 +58,9 @@ const Login = ({ onLogin }) => {
         {/* Logo */}
         <div className="text-center mb-8">
           <img 
-            src="/src/components/logoMesa de trabajo 1.png" 
+            src={logo}
             alt="KUVS Logo" 
-            className="h-16 w-auto mx-auto filter invert"
+            className="h-16 w-auto mx-auto"
           />
           <h1 className="mt-4 text-2xl font-bold text-white">KUV'S PLAYBOOK</h1>
           <p className="mt-1 text-gray-400">Valorant Strategies & Lineups</p>
@@ -66,18 +80,18 @@ const Login = ({ onLogin }) => {
             
             <form onSubmit={handleSubmit}>
               <div className="space-y-5">
-                {/* Username Field */}
+                {/* Email Field */}
                 <div>
-                  <label htmlFor="username" className="block text-sm font-medium text-gray-300 mb-1">
-                    Username
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
+                    Username or Email
                   </label>
                   <input
-                    id="username"
+                    id="email"
                     type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="w-full bg-[#1E1A25] border border-gray-700 rounded-md px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-[#802BB1] focus:border-transparent"
-                    placeholder="Enter your username"
+                    placeholder="Enter your username or email"
                   />
                 </div>
                 

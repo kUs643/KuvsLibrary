@@ -8,6 +8,7 @@ import {
   Settings, 
   LogOut
 } from 'lucide-react';
+import logo from '/src/components/logoMesa de trabajo 1.png';
 
 const Sidebar = ({ onLogout }) => {
   const location = useLocation();
@@ -20,9 +21,9 @@ const Sidebar = ({ onLogout }) => {
     <aside className="w-16 border-r border-gray-800 p-2 flex flex-col h-screen fixed left-0 top-0 bg-kuvsbook-darker">
       <div className="mb-8 mt-4 flex justify-center">
         <img 
-          src="/src/components/logoMesa de trabajo 1.png" 
+          src={logo}
           alt="KUVS Logo" 
-          className="h-8 w-auto filter invert"
+          className="h-8 w-auto"
         />
       </div>
       
